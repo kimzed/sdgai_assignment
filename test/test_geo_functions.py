@@ -7,7 +7,7 @@ from geopandas import GeoDataFrame
 from pandas import DataFrame
 from shapely import Point
 
-from visualization_functions import plot_with_basemap, scatter_plot
+from utils.visualization_functions import plot_with_basemap, scatter_plot
 
 
 def test_plot_with_basemap_file_created_is_not_empty():
@@ -19,7 +19,7 @@ def test_plot_with_basemap_file_created_is_not_empty():
     # act
     with tempfile.TemporaryDirectory() as temp_dir:
         file_out = Path(Path(temp_dir + "test.png"))
-        plot_with_basemap(gdf, output_file=file_out, show=True)
+        plot_with_basemap(gdf, output_file=file_out, show=False)
 
         # assert
         image = Image.open(file_out)
