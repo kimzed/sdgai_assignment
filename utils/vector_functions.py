@@ -6,7 +6,6 @@ from geopandas.geodataframe import GeoDataFrame
 from shapely import geometry, Point, box
 
 
-
 def add_rows_to_gdf(
     gdf: GeoDataFrame, new_geometries: List[geometry], features: Dict[str, List]
 ) -> GeoDataFrame:
@@ -27,7 +26,7 @@ def add_rows_to_gdf(
         raise ValueError("features keys are not the same as gdf columns")
 
     gdf_to_add = GeoDataFrame(features, geometry=new_geometries, crs=gdf.crs)
-    gdf_out = pd.concat([gdf, gdf_to_add]) # returns a GeoDataFrame
+    gdf_out = pd.concat([gdf, gdf_to_add])  # returns a GeoDataFrame
 
     return gdf_out
 

@@ -47,8 +47,7 @@ def plot_with_basemap(
         "N",
         xy=(x_letter, y_letter),
         xytext=(x_letter, y_letter - arrow_length),
-        arrowprops={"facecolor": 'black', "width": 5, "headwidth": 15},
-
+        arrowprops={"facecolor": "black", "width": 5, "headwidth": 15},
         ha="center",
         va="center",
         fontsize=20,
@@ -72,6 +71,7 @@ def plot_with_basemap(
         plt.savefig(output_file)
     if show:
         plt.show()
+
 
 # pylint: disable=[too-many-arguments]
 def scatter_plot(
@@ -106,7 +106,12 @@ def scatter_plot(
     # Plotting the data
     color = sns.color_palette("viridis", as_cmap=True)(0.5)
     plt.scatter(
-        data[x_feature], data[y_feature], alpha=0.7, c=color, edgecolors="w", linewidth=0.5
+        data[x_feature],
+        data[y_feature],
+        alpha=0.7,
+        c=color,
+        edgecolors="w",
+        linewidth=0.5,
     )
 
     # Plotting the regression line using seaborn
