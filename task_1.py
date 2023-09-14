@@ -6,8 +6,8 @@ from matplotlib import pyplot as plt
 from scipy.stats import zscore
 from shapely import Point, box
 
-from visualization_functions import plot_with_basemap, scatter_plot
-from geo_functions import (
+from utils.visualization_functions import plot_with_basemap, scatter_plot
+from utils.vector_functions import (
     add_rows_to_gdf,
     remove_points_based_on_lat_lon,
     filter_gdf_points_by_extent,
