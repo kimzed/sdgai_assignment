@@ -8,7 +8,8 @@ from pyproj import CRS
 
 from utils.raster_functions import (
     stack_raster_bands_into_single_tif_raster,
-    save_2d_array_as_tif, minmax_scale_on_multi_band_raster,
+    save_2d_array_as_tif,
+    minmax_scale_on_multi_band_raster,
 )
 
 
@@ -59,18 +60,22 @@ def test_stack_raster_bands_into_single_raster_correct_values_are_saved():
 
 def test_minmax_scale_on_multi_band_raster_correct_values_are_computed():
 
-    raster_band_1 = np.array([0, 0,3000])
-    raster_band_2 = np.array([3000, 0,0])
+    raster_band_1 = np.array([[0, 0, 3000], [0, 0, 3000], [0, 0, 3000]])
+    raster_band_2 = np.array([[3000, 0, 0], [0, 0, 0], [0, 0, 3000]])
 
     raster = np.stack([raster_band_1, raster_band_2], axis=0)
 
     min_value = 0
     max_value = 255
 
-    rescaled_raster = minmax_scale_on_multi_band_raster(
-        raster, min_value, max_value
-    )
+    rescaled_raster = minmax_scale_on_multi_band_raster(raster, min_value, max_value)
 
     # assert that the values are correct
-    assert np.all(np.isclose(rescaled_raster[0], np.array([0, 0, 255])))
-    assert np.all(np.isclose(rescaled_raster[1], np.array([255, 0, 0])))
+    assert np.all(
+        np.isclose(
+            rescaled_raster[0], np.array([[0, 0, 255], [0, 0, 255], [0, 0, 255]])
+        )
+    )
+    assert np.all(
+        np.isclose(rescaled_raster[1], np.array([[255, 0, 0], [0, 0, 0], [0, 0, 255]]))
+    )

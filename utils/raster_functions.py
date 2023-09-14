@@ -1,5 +1,6 @@
 from typing import List
 
+import cv2
 import numpy as np
 import rasterio
 
@@ -53,10 +54,15 @@ def minmax_scale_on_multi_band_raster(
         raise ValueError(
             f"min_value ({min_value}) must be smaller than max_value ({max_value})"
         )
-
+    # formula: (band - band.min()) / (band.max() - band.min()) * max_value
+    # we need to lower the data type to avoid memory overflow
     rescaled_bands = [
-        minmax_scale(X=band, feature_range=(min_value, max_value)) for band in raster
+        cv2.normalize(
+            band, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_16F
+        )
+        for band in raster
     ]
+
     # stack the bands back together
     return np.stack(rescaled_bands, axis=0)
 
