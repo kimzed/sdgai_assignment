@@ -5,10 +5,12 @@ import rasterio
 
 from pathlib import Path
 
-from affine import Affine
+from sklearn.preprocessing import minmax_scale
 
 
-def stack_raster_bands_into_single_tif_raster(files: List[Path], out_file: Path) -> None:
+def stack_raster_bands_into_single_tif_raster(
+    files: List[Path], out_file: Path
+) -> None:
     """
     Stacks raster bands into a single raster file
 
@@ -35,9 +37,31 @@ def stack_raster_bands_into_single_tif_raster(files: List[Path], out_file: Path)
                 destination_raster.write_band(id_layer, band.read(1))
 
 
-def save_2d_array_as_tif(
-    array: np.ndarray, metadata: dict, name_file: Path
-) -> None:
+def minmax_scale_on_multi_band_raster(
+    raster: np.ndarray, min_value: float, max_value: float
+) -> np.ndarray:
+    """
+    Performs min-max scaling on a multi band raster
+
+    :param raster: raster to be scaled
+    :param min_value: minimum value of the raster
+    :param max_value: maximum value of the raster
+    :return: scaled raster
+    """
+
+    if min_value >= max_value:
+        raise ValueError(
+            f"min_value ({min_value}) must be smaller than max_value ({max_value})"
+        )
+
+    rescaled_bands = [
+        minmax_scale(X=band, feature_range=(min_value, max_value)) for band in raster
+    ]
+    # stack the bands back together
+    return np.stack(rescaled_bands, axis=0)
+
+
+def save_2d_array_as_tif(array: np.ndarray, metadata: dict, name_file: Path) -> None:
 
     if array.ndim != 2:
         raise ValueError(f"Array must be 2D. Got {array.ndim}D array")
@@ -48,4 +72,4 @@ def save_2d_array_as_tif(
         )
 
     with rasterio.open(str(name_file), "w", **metadata) as dest:
-        dest.write(array, 1) # write array to first band
+        dest.write(array, 1)  # write array to first band
