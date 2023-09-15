@@ -11,6 +11,8 @@ from shapely.ops import unary_union
 from utils.raster_functions import (
     stack_raster_bands_into_single_tif_raster,
     minmax_scale_on_multi_band_raster,
+    crop_raster_with_polygon,
+    resample_raster, get_rgb_bands, SatelliteRgbBandsIndexes,
 )
 
 DATA_DIR = Path(__file__).parent.joinpath(
@@ -74,43 +76,39 @@ def main():
     gdf_lapalma = gpd.GeoDataFrame(geometry=boundary_la_palma)
     gdf_lapalma.to_file(str(DATA_DIR / "boundary_la_palma.gpkg"), driver="GPKG")
 
-    with rasterio.open(stacked_raster_file) as stacked_raster_reader:
-        raster_profile = stacked_raster_reader.profile
-        cropped_raster, _ = rasterio.mask.mask(
-            dataset=stacked_raster_reader, shapes=boundary_la_palma
-        )
-
-        with rasterio.open(
-            DATA_DIR / "cropped_raster.tif", "w", **raster_profile
-        ) as dst:
-            dst.write(cropped_raster)
-
+    cropped_raster_file = DATA_DIR / "cropped_raster.tif"
+    cropped_raster = crop_raster_with_polygon(
+        raster_file=stacked_raster_file,
+        polygon=gdf_lapalma.geometry,
+        file_save=cropped_raster_file,
+    )
     # Step 3
     rescaled_values = minmax_scale_on_multi_band_raster(
         cropped_raster, min_value=0, max_value=255
     )
 
-    with rasterio.open(DATA_DIR / "scaled_raster.tif", "w", **raster_profile) as dst:
+    rescaled_raster = DATA_DIR / "scaled_raster.tif"
+    with rasterio.open(cropped_raster_file) as cropped_raster_reader:
+        cropped_raster_profile = cropped_raster_reader.profile
+
+    with rasterio.open(rescaled_raster, "w", **cropped_raster_profile) as dst:
         dst.write(rescaled_values)
 
-    # Step 4
-    upscale_factor = 2
-    with rasterio.open(DATA_DIR / "scaled_raster.tif") as dataset:
-        # resample data to target shape
-        data = dataset.read(
-            out_shape=(
-                dataset.count,
-                int(dataset.height * upscale_factor),
-                int(dataset.width * upscale_factor),
-            ),
-            resampling=Resampling.bilinear,
-        )
+    # Step 4 and 5
+    resampled_raster_file = DATA_DIR / "resampled_raster.tif"
+    resampled_raster = resample_raster(
+        raster=rescaled_raster,
+        new_spatial_resolution_meter=20,
+        file_save=resampled_raster_file,
+    )
 
-        # scale image transform
-        # transform = dataset.transform * dataset.transform.scale(
-        #     (dataset.width / data.shape[-1]),
-        #     (dataset.height / data.shape[-2])
-        # )
+
+    # Step 6
+    from rasterio.plot import show
+    with rasterio.open(resampled_raster_file) as raster:
+        rgb_bands = get_rgb_bands(raster_reader=raster,
+                                  satellite_rgb_bands_ids=SatelliteRgbBandsIndexes.Sentinel2_R10)
+        show(rgb_bands, adjust=True)
 
 
 if __name__ == "__main__":

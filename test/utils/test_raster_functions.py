@@ -58,6 +58,11 @@ def test_stack_raster_bands_into_single_raster_correct_values_are_saved():
         assert np.all(raster_array[2] == raster_band_3)
 
 
+def test_resample_raster():
+    # TODO use a mock raster
+    pass
+
+
 def test_minmax_scale_on_multi_band_raster_correct_values_are_computed():
 
     raster_band_1 = np.array([[0, 0, 3000], [0, 0, 3000], [0, 0, 3000]])

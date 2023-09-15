@@ -1,12 +1,19 @@
-from typing import List
+from enum import Enum
+from typing import List, Optional, Iterable
 
+from rasterio import DatasetReader
+from rasterio.enums import Resampling
+from shapely.geometry.polygon import Polygon
 import cv2
 import numpy as np
 import rasterio
 
 from pathlib import Path
 
-from sklearn.preprocessing import minmax_scale
+
+class SatelliteRgbBandsIndexes(Enum):
+    Landsat8 = [3,2,1]
+    Sentinel2_R10 = [3,2,1]
 
 
 def stack_raster_bands_into_single_tif_raster(
@@ -70,6 +77,75 @@ def minmax_scale_on_multi_band_raster(
         )
 
     return raster_out
+
+
+def resample_raster(
+    raster: Path, new_spatial_resolution_meter: int, file_save: Optional[Path] = None
+) -> np.ndarray:
+
+    with rasterio.open(raster) as raster_reader:
+        # we use the raster resolution to find the scale factor
+        scale_factor_x = raster_reader.res[0] / new_spatial_resolution_meter
+        scale_factor_y = raster_reader.res[1] / new_spatial_resolution_meter
+
+        profile = raster_reader.profile.copy()
+        # resample data to target shape
+        raster_resampled = raster_reader.read(
+            out_shape=(
+                raster_reader.count,
+                int(raster_reader.height * scale_factor_y),
+                int(raster_reader.width * scale_factor_x),
+            ),
+            resampling=Resampling.bilinear,
+        )
+
+        profile.update(
+            {
+                "height": raster_reader.shape[-2],
+                "width": raster_reader.shape[-1],
+            }
+        )
+
+    if file_save:
+        with rasterio.open(file_save, "w", **profile) as dataset:
+            dataset.write(raster_resampled)
+
+    return raster_resampled
+
+
+def get_rgb_bands(raster_reader:DatasetReader, satellite_rgb_bands_ids:SatelliteRgbBandsIndexes):
+
+    rgb_indices = satellite_rgb_bands_ids.value
+    return np.stack([raster_reader.read(i) for i in rgb_indices])
+
+
+def crop_raster_with_polygon(
+    raster_file: Path, polygon: Iterable[Polygon], file_save: Optional[Path]
+) -> np.ndarray:
+
+    with rasterio.open(raster_file) as stacked_raster_reader:
+        raster_profile = stacked_raster_reader.profile
+        cropped_raster, out_transform = rasterio.mask.mask(
+            dataset=stacked_raster_reader,
+            shapes=polygon,
+            crop=True,
+        )
+
+    if file_save:
+        # we update the metadata of the raster
+        raster_profile_out = raster_profile.copy()
+        raster_profile_out.update(
+            {
+                "driver": "GTiff",
+                "height": cropped_raster.shape[1],
+                "width": cropped_raster.shape[2],
+                "transform": out_transform,
+            }
+        )
+        with rasterio.open(file_save, "w", **raster_profile_out) as dst:
+            dst.write(cropped_raster)
+
+    return cropped_raster
 
 
 def save_2d_array_as_tif(array: np.ndarray, metadata: dict, name_file: Path) -> None:
