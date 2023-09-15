@@ -71,7 +71,7 @@ Make sure to adjust to correctly configure PYTHONPATH to be in the repo.
 
 ## Acknowledgements
 
-I'd like to thank the SDG AI Lab for providing this challenging and enriching assignment. It offered an opportunity to showcase GIS and deep learning capabilities in a practical manner.
+I'd like to thank the SDG AI Lab for providing this challenging and enriching assignment. It offered an opportunity to showcase my GIS and deep learning capabilities in a practical manner.
 
 ## Contact Information
 
