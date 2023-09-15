@@ -80,7 +80,7 @@ def scatter_plot(
     y_feature: str,
     title: str,
     output_file: Optional[Path] = None,
-    show: Optional[bool] = True,
+    show: bool = True,
 ) -> None:
     # pylint: disable=W0212
     """
