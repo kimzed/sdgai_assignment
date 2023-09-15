@@ -13,6 +13,7 @@ from utils.visualization_functions import (
     visualize_image_array,
 )
 
+
 def test_plot_with_basemap_file_created_is_not_empty():
     # arrange
     geometry = [Point(0, 0), Point(10, 10), Point(0, 0)]

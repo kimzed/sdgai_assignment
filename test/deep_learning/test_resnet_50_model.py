@@ -54,5 +54,3 @@ def test_model_forward_returns_correct_output():
     output = resnet_50_custom.model(array)
 
     assert output.shape == (1, 10)
-
-
