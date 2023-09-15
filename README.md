@@ -54,7 +54,7 @@ sdgai_assignment/
 2. **Geographical Data Manipulation and Management** - Focuses on raster data processing.
 3. **Scene Classification by Deep Learning** - Utilizes a pretrained model to classify scenes.
 
-Detailed task descriptions can be found in the 'instructions' document from the repo
+Detailed task descriptions can be found in the 'GIS Recruitment Task Fall 2023.pdf' document from the repo
 
 ## Running the Scripts
 
