@@ -1,19 +1,13 @@
 from pathlib import Path
-from typing import Optional, List, Dict
+from typing import Optional
 
 import torch
 from torch import nn, Tensor
+import torch.nn.functional as F
 from torchvision.datasets import ImageFolder
 from torchvision.models import resnet50
-import torch.nn.functional as F
 
-
-TASK_3_DIR = Path.cwd().parent.joinpath("TASK 3 Data")
-TASK_3_DIR = Path(
-    "/home/cedric/repos/sdgai_assignment/TASK 3 Data-20230913T191958Z-001"
-)
-WEIGHTS_PATH = TASK_3_DIR / "TASK 3 Data/model.pth"
-DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+from settings import DEVICE, WEIGHTS_PATH
 
 
 class ResNet50Custom:
@@ -21,8 +15,8 @@ class ResNet50Custom:
         self,
         num_classes: int,
         learning_rate: float = 5e-4,
-        device: str = DEVICE,
-        weights_path: Optional[str] = WEIGHTS_PATH,
+        device: torch.device = DEVICE,
+        weights_path: Optional[Path] = WEIGHTS_PATH,
     ):
         self.number_classes = num_classes
         self.device = device
@@ -77,9 +71,7 @@ class ResNet50Custom:
 
         return model
 
-    def predict_on_image_folder_dataset(
-        self, image_dataset: ImageFolder
-    ) -> Dict[str, List[int]]:
+    def predict_on_image_folder_dataset(self, image_dataset: ImageFolder) -> dict:
         predicted_labels = []
         actual_labels = []
         for image, i_label in image_dataset:

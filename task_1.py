@@ -1,4 +1,3 @@
-from pathlib import Path
 import geopandas as gpd
 import numpy as np
 import pandas as pd
@@ -6,6 +5,7 @@ from matplotlib import pyplot as plt
 from scipy.stats import zscore
 from shapely import Point, box
 
+from settings import POINTS2_SHP, DELIVERABLE_DIR, DATA_DIR_TASK1, ADDITIONAL_DATA_CSV
 from utils.visualization_functions import plot_with_basemap, scatter_plot
 from utils.vector_functions import (
     add_rows_to_gdf,
@@ -13,24 +13,18 @@ from utils.vector_functions import (
     filter_gdf_points_by_extent,
 )
 
-DATA_FOLDER = Path(__file__).parent.joinpath(
-    "TASK 1 Data-20230913T191950Z-001/TASK 1 Data"
-)
-POINT_DATA = DATA_FOLDER.joinpath("points2.shp")
-CSV_DATA = DATA_FOLDER.joinpath("additional_data.csv")
-
 
 def main():
 
     # Step 1
-    gdf = gpd.read_file(POINT_DATA)
+    gdf = gpd.read_file(POINTS2_SHP)
 
     # Step 2
     new_point = Point(-2.00144, 11.76553)
     # since we do not have specification for other features, we set them to NAN
     features = {
         "URBAN_RURA": ["U"],
-        "ALT_DEM": [np.NAN],
+        "ALT_DEM": [42],
         "DHSCLUST": [np.NAN],
         "LATNUM": [new_point.y],
         "LONGNUM": [new_point.x],
@@ -48,8 +42,9 @@ def main():
     )
 
     # Step 4
-    # save the data in a csv file
-    gdf_clean.to_csv(DATA_FOLDER.joinpath("points_clean.csv"))
+    # only column 'LATNUM', 'LONGNUM' into a csv file
+    lat_lon_to_save = gdf_clean[["LATNUM", "LONGNUM"]]
+    lat_lon_to_save.to_csv(DELIVERABLE_DIR.joinpath("lat_lon.csv"))
 
     # Step 5
     # we add the value given in the assignment
@@ -62,13 +57,14 @@ def main():
 
     # Step 6
     plot_with_basemap(
-        gdf=gdf_filtered, output_file=DATA_FOLDER.joinpath("points_within_extent.png")
+        gdf=gdf_filtered,
+        output_file=DATA_DIR_TASK1.joinpath("points_within_extent.png"),
     )
 
     # Step 7
     # since there are several values for the same cluster number,
     # we group by mean for other features
-    additional_data = pd.read_csv(CSV_DATA)
+    additional_data = pd.read_csv(ADDITIONAL_DATA_CSV)
     additional_data_grouped = additional_data.groupby("Cluster number").mean()
     gdf_merged = pd.merge(
         gdf,  # we use the .shp file as mentioned in instructions
@@ -89,14 +85,14 @@ def main():
         x_feature="wealth index",
         y_feature="number of household members",
         title="Scatterplot between Wealth Index and Number of Household Members (unclustered data)",
-        output_file=DATA_FOLDER.joinpath("scatter_plot_unclustered.png"),
+        output_file=DELIVERABLE_DIR.joinpath("scatter_plot_unclustered.png"),
     )
     scatter_plot(
         data=gdf_merged,
         x_feature="wealth index",
         y_feature="number of household members",
         title="Scatterplot between Wealth Index and Number of Household Members (clustered data)",
-        output_file=DATA_FOLDER.joinpath("scatter_plot_clustered.png"),
+        output_file=DELIVERABLE_DIR.joinpath("scatter_plot_clustered.png"),
     )
 
     # Step 9
@@ -130,7 +126,7 @@ def main():
     ax_plot[1].grid(True)
 
     plt.tight_layout()
-    plt.savefig(DATA_FOLDER / "histograms.png")
+    plt.savefig(DELIVERABLE_DIR / "histograms.png")
     plt.show()
 
 

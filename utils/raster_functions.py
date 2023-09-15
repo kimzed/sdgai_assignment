@@ -1,19 +1,19 @@
 from enum import Enum
 from typing import List, Optional, Iterable
+from pathlib import Path
 
 from rasterio import DatasetReader
 from rasterio.enums import Resampling
+from rasterio.mask import mask
 from shapely.geometry.polygon import Polygon
 import cv2
 import numpy as np
 import rasterio
 
-from pathlib import Path
-
 
 class SatelliteRgbBandsIndexes(Enum):
-    Landsat8 = [3,2,1]
-    Sentinel2_R10 = [3,2,1]
+    LANDSAT8 = [3, 2, 1]
+    SENTINEL2_R10 = [3, 2, 1]
 
 
 def stack_raster_bands_into_single_tif_raster(
@@ -113,7 +113,9 @@ def resample_raster(
     return raster_resampled
 
 
-def get_rgb_bands(raster_reader:DatasetReader, satellite_rgb_bands_ids:SatelliteRgbBandsIndexes):
+def get_rgb_bands(
+    raster_reader: DatasetReader, satellite_rgb_bands_ids: SatelliteRgbBandsIndexes
+):
 
     rgb_indices = satellite_rgb_bands_ids.value
     return np.stack([raster_reader.read(i) for i in rgb_indices])
@@ -125,7 +127,7 @@ def crop_raster_with_polygon(
 
     with rasterio.open(raster_file) as stacked_raster_reader:
         raster_profile = stacked_raster_reader.profile
-        cropped_raster, out_transform = rasterio.mask.mask(
+        cropped_raster, out_transform = mask(
             dataset=stacked_raster_reader,
             shapes=polygon,
             crop=True,
@@ -155,7 +157,8 @@ def save_2d_array_as_tif(array: np.ndarray, metadata: dict, name_file: Path) -> 
     height, width = array.shape
     if metadata["width"] != width or metadata["height"] != height:
         raise ValueError(
-            f"Array shape ({array.shape}) does not match metadata shape ({metadata['width']}, {metadata['height']})"
+            f"Array shape ({array.shape}) does not match metadata "
+            f"shape ({metadata['width']}, {metadata['height']})"
         )
 
     with rasterio.open(str(name_file), "w", **metadata) as dest:
