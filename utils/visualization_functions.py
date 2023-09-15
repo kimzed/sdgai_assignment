@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import Optional
 
+import numpy as np
 import pandas as pd
 from geopandas import GeoDataFrame
 import seaborn as sns
@@ -8,6 +9,29 @@ import contextily as ctx
 from matplotlib import pyplot as plt
 from scipy.stats import linregress
 from matplotlib_scalebar.scalebar import ScaleBar
+
+
+def visualize_image_array(
+    image: np.ndarray,
+    file_save: Optional[Path] = None,
+    show: bool = True,
+    title: Optional[str] = None,
+) -> None:
+    if len(image.shape) != 3:
+        raise ValueError("The array should be 3D")
+
+    if image.shape[2] != 3:
+        raise ValueError("The 3rd dimension should be 3")
+
+    # rescaling the image to be between 0 and 1
+    image = image * (1 / image.max())
+    plt.imshow(image)
+    if title:
+        plt.title(title)
+    if file_save:
+        plt.savefig(file_save)
+    if show:
+        plt.show()
 
 
 def plot_with_basemap(

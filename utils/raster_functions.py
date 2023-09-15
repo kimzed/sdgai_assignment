@@ -58,7 +58,12 @@ def minmax_scale_on_multi_band_raster(
     # we need to lower the data type to avoid memory overflow
     rescaled_bands = [
         cv2.normalize(
-            band, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_16F
+            band,
+            None,
+            alpha=0,
+            beta=255,
+            norm_type=cv2.NORM_MINMAX,
+            dtype=cv2.CV_32F,  # CV_16F
         )
         for band in raster
     ]

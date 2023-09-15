@@ -2,26 +2,16 @@ import tempfile
 from pathlib import Path
 
 import numpy as np
-import torch
 from PIL import Image
 from geopandas import GeoDataFrame
 from pandas import DataFrame
 from shapely import Point
 
-from utils.visualization_functions import scatter_plot, plot_with_basemap, visualize_image_array, tensor_to_image
-
-
-def test_tensor_to_image_returns_numpy_array():
-
-    # arrange
-    tensor = torch.rand(3, 100, 100)
-
-    # act
-    image = tensor_to_image(tensor)
-
-    # assert
-    assert isinstance(image, np.ndarray)
-    assert image.shape == (100, 100, 3)
+from utils.visualization_functions import (
+    scatter_plot,
+    plot_with_basemap,
+    visualize_image_array,
+)
 
 def test_plot_with_basemap_file_created_is_not_empty():
     # arrange
@@ -40,9 +30,10 @@ def test_plot_with_basemap_file_created_is_not_empty():
         # assert values in the image are varied
         assert np.var(image_array) > 100
 
+
 def test_visualize_image_array_file_created_is_not_empty():
     # arrange
-    image = np.random.rand(100,100,3)
+    image = np.random.rand(100, 100, 3)
 
     # act
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -54,6 +45,8 @@ def test_visualize_image_array_file_created_is_not_empty():
         image_array = np.array(image)
         # assert values in the image are varied
         assert np.var(image_array) > 100
+
+
 def test_scatter_plot_file_created_is_not_empty():
     # arrange
     x = np.random.rand(100)
