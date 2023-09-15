@@ -50,26 +50,26 @@ def minmax_scale_on_multi_band_raster(
     :return: scaled raster
     """
 
+    # we make a copy to avoid modifying the original raster
+    raster_out = raster.copy()
+
     if min_value >= max_value:
         raise ValueError(
             f"min_value ({min_value}) must be smaller than max_value ({max_value})"
         )
     # formula: (band - band.min()) / (band.max() - band.min()) * max_value
-    # we need to lower the data type to avoid memory overflow
-    rescaled_bands = [
-        cv2.normalize(
+    # we convert in the raster to avoid memory overflow
+    for i_band, band in enumerate(raster_out):
+
+        raster_out[i_band] = cv2.normalize(
             band,
             None,
             alpha=0,
             beta=255,
             norm_type=cv2.NORM_MINMAX,
-            dtype=cv2.CV_32F,  # CV_16F
         )
-        for band in raster
-    ]
 
-    # stack the bands back together
-    return np.stack(rescaled_bands, axis=0)
+    return raster_out
 
 
 def save_2d_array_as_tif(array: np.ndarray, metadata: dict, name_file: Path) -> None:
