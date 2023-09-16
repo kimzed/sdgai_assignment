@@ -77,6 +77,23 @@ Make sure to adjust to correctly configure PYTHONPATH to be in the repo.
 
 <img src="deliverables/scatter_plot_clustered.png" alt="Wealth Index vs. Number of Household Members (clustered)" width="500" height="300"/>
 
+### Question 8: Scatterplot Analysis
+
+#### Objective
+To explore the association between the 'wealth index' and 'number of household members' leveraging the Burkina Faso survey dataset.
+
+#### Methodology
+- Data was sourced from a point geodataframe (GDF) encompassing household surveys.
+- Given the data clustering observed in certain areas, mean values for both the 'wealth index' and 'number of household members' were calculated via a 'group by' operation.
+
+#### Findings
+1. **Correlation and R-Squared Value:**  
+   - Using a scatterplot, we illustrated the relationship between the 'wealth index' and the 'number of household members'.
+   - An R-squared value of 0.10 emerged, indicating that a mere 10% of the variance in household size can be linked to the wealth index.
+   - Notably, a minor negative correlation was also detected.
+
+2. **Recommendation for Further Analysis:**  
+   - The Pearson correlation coefficient test is recommended for assessing the statistical significance of the observed correlation.
 
 
 <img src="deliverables/scatter_plot_unclustered.png" alt="Wealth Index vs. Number of Household Members (unclustered)" width="500" height="300"/>
