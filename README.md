@@ -75,6 +75,7 @@ Make sure to adjust to correctly configure PYTHONPATH to be in the repo.
 
 ![Wealth Index vs. Number of Household Members (clustered)](deliverables/scatter_plot_clustered.png)
 
+<img src="deliverables/scatter_plot_clustered.png" alt="Wealth Index vs. Number of Household Members (clustered)" width="200" height="150"/>
 
 ![Wealth Index vs. Number of Household Members (unclustered)](deliverables/scatter_plot_unclustered.png)
 
