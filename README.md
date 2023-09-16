@@ -129,23 +129,26 @@ Where:
 
 #### Metrics report
 
-|                   | precision | recall | f1-score | support |
-|-------------------|-----------|--------|----------|---------|
-| AnnualCrop        | 0.91      | 0.96   | 0.93     | 50      |
-| Forest            | 0.98      | 0.96   | 0.97     | 50      |
-| HerbaceousVegetation | 0.96   | 0.96   | 0.96     | 50      |
-| Highway           | 1.00      | 1.00   | 1.00     | 50      |
-| Industrial        | 1.00      | 0.98   | 0.99     | 50      |
-| Pasture           | 0.94      | 0.96   | 0.95     | 50      |
-| PermanentCrop     | 0.94      | 0.90   | 0.92     | 50      |
-| Residential       | 1.00      | 1.00   | 1.00     | 50      |
-| River             | 0.98      | 0.98   | 0.98     | 50      |
-| SeaLake           | 0.98      | 0.98   | 0.98     | 50      |
-| accuracy          | 0.97      | 0.97   | 0.97     | 0.97    |
-| macro avg         | 0.97      | 0.97   | 0.97     | 500     |
-| weighted avg      | 0.97      | 0.97   | 0.97     | 500     |
+|                   | precision | recall | f1-score |
+|-------------------|-----------|--------|----------|
+| AnnualCrop        | 0.91      | 0.96   | 0.93     |
+| Forest            | 0.98      | 0.96   | 0.97     |
+| HerbaceousVegetation | 0.96   | 0.96   | 0.96     |
+| Highway           | 1.00      | 1.00   | 1.00     |
+| Industrial        | 1.00      | 0.98   | 0.99     |
+| Pasture           | 0.94      | 0.96   | 0.95     |
+| PermanentCrop     | 0.94      | 0.90   | 0.92     |
+| Residential       | 1.00      | 1.00   | 1.00     |
+| River             | 0.98      | 0.98   | 0.98     |
+| SeaLake           | 0.98      | 0.98   | 0.98     |
+| accuracy          | 0.97      |        |          |
+| macro avg         | 0.97      |        |          |
+| weighted avg      | 0.97      |        |          |
 
 
+#### Confusion matrix
+
+<img src="deliverables/confusion_matrix.png" alt="Wealth Index vs. Number of Household Members (unclustered)" width="500" height="500"/>
 
 ## Acknowledgements
 
