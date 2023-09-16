@@ -69,6 +69,14 @@ Make sure to adjust to correctly configure PYTHONPATH to be in the repo.
 - All deliverable plots, CSVs, and raster images can be found in the `deliverables` directory.
 - The assignment also outputs specific metrics and results directly to the console.
 
+
+## Tasks (report)
+### Task 1
+![Wealth Index vs. Number of Household Members (clustered)](deliverables/scatter_plot_unclustered.png)
+
+![Wealth Index vs. Number of Household Members (unclustered)](deliverables/scatter_plot_clustered.png)
+
+
 ## Acknowledgements
 
 I'd like to thank the SDG AI Lab for providing this challenging and enriching assignment. It offered an opportunity to showcase my GIS and deep learning capabilities in a practical manner.
