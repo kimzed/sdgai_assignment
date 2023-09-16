@@ -80,11 +80,12 @@ Make sure to adjust to correctly configure PYTHONPATH to be in the repo.
 ### Question 8: Scatterplot Analysis
 
 #### Objective
-To explore the association between the 'wealth index' and 'number of household members' leveraging the Burkina Faso survey dataset.
+To explore the association between the 'wealth index' and 'number of household members' inside the Burkina Faso survey dataset.
 
 #### Methodology
-- Data was sourced from a point geodataframe (GDF) encompassing household surveys.
-- Given the data clustering observed in certain areas, mean values for both the 'wealth index' and 'number of household members' were calculated via a 'group by' operation.
+- All samples had a cluster id, related to a coordinate point.
+- For every cluster, we calculate the mean household members and wealth index, via a 'group by' operation.
+- Mean is chosen to better integrate outliers within a location (very high or low values).
 
 #### Findings
 1. **Correlation and R-Squared Value:**  
@@ -98,8 +99,7 @@ To explore the association between the 'wealth index' and 'number of household m
 
 <img src="deliverables/scatter_plot_unclustered.png" alt="Wealth Index vs. Number of Household Members (unclustered)" width="500" height="300"/>
 
-
-
+As an addition, we plotted wealth index against number of household numbers in the whole dataset. The resulting R-squared value is notably low at 0.01, suggesting a minimal relationship between the wealth index and household size on an overarching scale. The dataset also exhibits increased variance. It's evident that clustering the data spatially mitigates noise and variance, emphasizing spatial dynamics that correlate the two variables more distinctly at lower resolutions. Exploring methods like spatial autocorrelation could be valuable for identifying distinct patterns in various areas.
 
 ## Acknowledgements
 
