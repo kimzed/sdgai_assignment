@@ -70,14 +70,12 @@ Make sure to adjust to correctly configure PYTHONPATH to be in the repo.
 - The assignment also outputs specific metrics and results directly to the console.
 
 
-## Tasks (report)
-### Task 1
+# Tasks (report)
+## Task 1 question 8: Scatterplot Analysis
 
 
 
 <img src="deliverables/scatter_plot_clustered.png" alt="Wealth Index vs. Number of Household Members (clustered)" width="500" height="300"/>
-
-### Question 8: Scatterplot Analysis
 
 #### Objective
 To explore the association between the 'wealth index' and 'number of household members' inside the Burkina Faso survey dataset.
@@ -101,9 +99,7 @@ To explore the association between the 'wealth index' and 'number of household m
 
 As an addition, we plotted wealth index against number of household numbers in the whole dataset. The resulting R-squared value is notably low at 0.01, suggesting a minimal relationship between the wealth index and household size on an overarching scale. The dataset also exhibits increased variance. It's evident that clustering the data spatially mitigates noise and variance, emphasizing spatial dynamics that correlate the two variables more distinctly at lower resolutions. Exploring methods like spatial autocorrelation could be valuable for identifying distinct patterns in various areas.
 
-### Task 3
-
-### Question 4: transformations applied on the image
+## Task 3 question 4: transformations applied on the image
 
 1. **Resize and CenterCrop**: 
     - Images are resized to 256x256 pixels and center cropped to 224x224 pixels. This aligns with the standard input size for ResNet models pre-trained on ImageNet, ensuring the trained convolutional layers align with object sizes in the images for optimal predictions. Though CNNs are size-agnostic, the learned feature sizes are influenced by the input size during training. If we were to fine-tune our model using images of a different resolution, it might perform adequately. But in our context, given that we observe improved performance using the ImageNet default resolution, we can infer that the model was probably fine-tuned on similarly sized images.
@@ -128,6 +124,26 @@ Where:
     > **NB**: Normalization improves training stability and speed. It prevents the activation function to be saturated because of high ranges of input values, which would prevent the backward propagation to work efficiently. Proper normalization ensures more stable gradients during backpropagation and more stable weight values, resulting in more effective model updates.
 
 
+
+## Task 3 question 5: report accuracy scores
+
+#### Metrics report
+
+|                   | precision | recall | f1-score | support |
+|-------------------|-----------|--------|----------|---------|
+| AnnualCrop        | 0.91      | 0.96   | 0.93     | 50      |
+| Forest            | 0.98      | 0.96   | 0.97     | 50      |
+| HerbaceousVegetation | 0.96   | 0.96   | 0.96     | 50      |
+| Highway           | 1.00      | 1.00   | 1.00     | 50      |
+| Industrial        | 1.00      | 0.98   | 0.99     | 50      |
+| Pasture           | 0.94      | 0.96   | 0.95     | 50      |
+| PermanentCrop     | 0.94      | 0.90   | 0.92     | 50      |
+| Residential       | 1.00      | 1.00   | 1.00     | 50      |
+| River             | 0.98      | 0.98   | 0.98     | 50      |
+| SeaLake           | 0.98      | 0.98   | 0.98     | 50      |
+| accuracy          | 0.97      | 0.97   | 0.97     | 0.97    |
+| macro avg         | 0.97      | 0.97   | 0.97     | 500     |
+| weighted avg      | 0.97      | 0.97   | 0.97     | 500     |
 
 
 
