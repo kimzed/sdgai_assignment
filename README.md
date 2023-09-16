@@ -72,9 +72,13 @@ Make sure to adjust to correctly configure PYTHONPATH to be in the repo.
 
 ## Tasks (report)
 ### Task 1
-![Wealth Index vs. Number of Household Members (clustered)](deliverables/scatter_plot_unclustered.png)
 
-![Wealth Index vs. Number of Household Members (unclustered)](deliverables/scatter_plot_clustered.png)
+![Wealth Index vs. Number of Household Members (clustered)](deliverables/scatter_plot_clustered.png)
+
+
+![Wealth Index vs. Number of Household Members (unclustered)](deliverables/scatter_plot_unclustered.png)
+
+
 
 
 ## Acknowledgements
