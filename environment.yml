@@ -6,13 +6,10 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - torch
+  - pytorch
   - torchvision
   - geopandas
   - rasterio
-  - cv2
+  - opencv
   - seaborn
   - contextily
-  - matplotlib
-  - scipy
-  - sklearn
