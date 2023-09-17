@@ -9,6 +9,7 @@ from sklearn.metrics import classification_report
 
 from deep_learning.metrics import confusion_matrix_visualization
 from deep_learning.resnet_50_model import ResNet50Custom
+from settings import DELIVERABLE_DIR
 from utils.visualization_functions import visualize_image_array
 from utils.deep_learning_functions import tensor_to_image
 
@@ -76,7 +77,7 @@ def main():
         predictions=predicted_labels,
         ground_truth=actual_labels,
         labels=dataset.classes,
-        save_path=TASK_3_DIR.joinpath("confusion_matrix.png"),
+        save_path=DELIVERABLE_DIR.joinpath("confusion_matrix.png"),
     )
 
     report = classification_report(
@@ -89,7 +90,7 @@ def main():
     df_report = pd.DataFrame(report).transpose()
     # we remove some decimals to make the report more readable
     df_report_rounded = df_report.round(2)
-    df_report_rounded.to_csv(TASK_3_DIR.joinpath("classification_report.csv"))
+    df_report_rounded.to_csv(DELIVERABLE_DIR.joinpath("classification_report.csv"))
 
 
 if __name__ == "__main__":

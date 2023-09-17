@@ -2,9 +2,10 @@ from pathlib import Path
 
 import torch
 
-DELIVERABLE_DIR = Path(__file__).parent.joinpath("deliverables")
+DELIVERABLE_DIR = Path(__file__).cwd().joinpath("deliverables")
+
 # Task 1
-DATA_DIR_TASK1 = Path(__file__).parent.joinpath(
+DATA_DIR_TASK1 = Path(__file__).cwd().joinpath(
     "TASK 1 Data-20230913T191950Z-001/TASK 1 Data"
 )
 POINTS2_SHP = DATA_DIR_TASK1.joinpath("points2.shp")
@@ -12,7 +13,7 @@ ADDITIONAL_DATA_CSV = DATA_DIR_TASK1.joinpath("additional_data.csv")
 
 
 # Task 2
-DATA_DIR_TASK2 = Path(__file__).parent.joinpath(
+DATA_DIR_TASK2 = Path(__file__).cwd().joinpath(
     "TASK 2 Data-20230913T191955Z-001/TASK 2 Data/"
 )
 RASTER_DIR = (
@@ -26,6 +27,7 @@ R20m_RASTER_DIR = RASTER_DIR / "R20m"
 
 
 # Task 3
-TASK_3_DIR = Path.cwd().parent.joinpath("TASK 3 Data")
-WEIGHTS_PATH = TASK_3_DIR / "TASK 3 Data/model.pth"
+
+TASK_3_DIR = Path.cwd().joinpath("TASK 3 Data-20230913T191958Z-001/TASK 3 Data")
+WEIGHTS_PATH = TASK_3_DIR / "model.pth"
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
