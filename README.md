@@ -4,6 +4,8 @@ Welcome to the GIS assignment repository for the SDG AI Lab Fellow Candidates of
 
 ## Table of Contents
 
+## Table of Contents
+
 - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Setup](#setup)
@@ -20,6 +22,7 @@ Welcome to the GIS assignment repository for the SDG AI Lab Fellow Candidates of
     - [Clean Code & Commenting](#clean-code-&-commenting)
 - [Acknowledgements](#acknowledgements)
 - [Contact Information](#contact-information)
+
 
 
 ## Getting Started
