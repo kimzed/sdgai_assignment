@@ -15,8 +15,12 @@ Welcome to the GIS assignment repository for the SDG AI Lab Fellow Candidates of
 - [Task 3 question 4 transformations applied on the image](#Task-3-question-4-transformations-applied-on-the-image)
 - [Task 3 question 5 report accuracy scores](#Task-3-question-5-report-accuracy-scores)
 - [Coding standard](#coding-standard)
+    - [Static Analysis Tools](#static-analysis-tools)
+    - [Testing](#testing)
+    - [Clean Code & Commenting](#clean-code-&-commenting)
 - [Acknowledgements](#acknowledgements)
 - [Contact Information](#contact-information)
+
 
 ## Getting Started
 
@@ -194,10 +198,6 @@ In the development of this assignment, a number of coding standards and best pra
 ## 2. **Testing**:
 
 - **Pytest**: Having a robust test suite is crucial, not only to verify the correctness of the code but also to make future changes with confidence. The functions are tested as much as possible, with different scenarios, and use advanced features like mocked data for better maintenance.
-
-## 3. **Clean Code & Commenting**:
-
-
 
 ## Acknowledgements
 
