@@ -100,7 +100,7 @@ def resample_raster(
         )
 
         # we change the metadata that will be used when computing the new
-        # pixel coordinates.
+        # pixel coordinates. we keep the same extension of the raster
         profile.update(
             {
                 "height": raster_reader.shape[-2],

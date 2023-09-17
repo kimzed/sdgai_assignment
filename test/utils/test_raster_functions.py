@@ -3,14 +3,43 @@ from pathlib import Path
 
 import numpy as np
 import rasterio
-from affine import Affine
 from pyproj import CRS
+import pytest
+from shapely import Polygon
 
 from utils.raster_functions import (
     stack_raster_bands_into_single_tif_raster,
     save_2d_array_as_tif,
     minmax_scale_on_multi_band_raster,
+    crop_raster_with_polygon,
+    resample_raster,
 )
+
+
+@pytest.fixture(scope="function")
+def mock_raster_file():
+    # Create a mock raster
+    mock_raster_data = np.random.randint(0, 255, (1, 100, 100)).astype(np.uint8)
+
+    # Define a transform (Affine transform)
+    # This indicates a top-left corner at (0, 0) and a pixel size of 1x1
+    transform = rasterio.transform.from_origin(0, 100, 1, 1)
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        raster_path = temp_dir + "/mock_raster.tif"
+        with rasterio.open(
+            raster_path,
+            "w",
+            driver="GTiff",
+            height=100,
+            width=100,
+            count=1,
+            dtype=mock_raster_data.dtype,
+            transform=transform,
+        ) as mock_raster:
+            mock_raster.write(mock_raster_data)
+
+        yield raster_path  # This allows the raster path to be accessible to the test functions
 
 
 def test_stack_raster_bands_into_single_raster_correct_values_are_saved():
@@ -58,9 +87,44 @@ def test_stack_raster_bands_into_single_raster_correct_values_are_saved():
         assert np.all(raster_array[2] == raster_band_3)
 
 
-def test_resample_raster():
-    # TODO use a mock raster
-    pass
+def test_resample_raster_resolution_doubled_values_are_clustered(mock_raster_file):
+    """
+    Test that the resampled raster has the correct shape
+    :return:
+    """
+    values_before = rasterio.open(mock_raster_file).read()
+    with tempfile.TemporaryDirectory() as temp_dir:
+        out_raster_file = Path(temp_dir) / "resampled_raster.tif"
+        # original spatial resolution is of 1 meter
+        resample_raster(
+            raster=mock_raster_file,
+            file_save=out_raster_file,
+            new_spatial_resolution_meter=2,
+        )
+
+        with rasterio.open(out_raster_file) as raster:
+            values_after = raster.read()
+
+        # number of pixels is the same since we keep the raster original extent
+        assert values_after.shape == (1, 100, 100)
+
+        # Check right neighbor similarity
+        similarity_before = np.sum(values_before[:, :, :-1] == values_before[:, :, 1:])
+        similarity_after = np.sum(values_after[:, :, :-1] == values_after[:, :, 1:])
+
+        # This way shows that the new raster has groups of pixels with the same value
+        # because of the resampling
+        assert similarity_after > 1000
+        assert similarity_before < 100
+
+
+
+def test_crop_raster_with_polygon_shape_after_cropping_is_correct(mock_raster_file):
+
+    polygon = Polygon([(0, 0), (0, 50), (50, 50), (50, 0)])
+    cropped_raster = crop_raster_with_polygon(mock_raster_file, [polygon], None)
+
+    assert cropped_raster.shape == (1, 50, 50)
 
 
 def test_minmax_scale_on_multi_band_raster_correct_values_are_computed():

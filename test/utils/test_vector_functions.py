@@ -53,6 +53,7 @@ def test_scatter_plot_file_created_is_not_empty():
         # assert values in the image are varied
         assert np.var(image_array) > 100
 
+
 def test_remove_points_based_on_lat_lon_returns_correct_values():
     # arrange
     geometry = [Point(0, 0), Point(10, 10), Point(0, 0)]
@@ -66,4 +67,3 @@ def test_remove_points_based_on_lat_lon_returns_correct_values():
     # assert
     assert len(gdf) == 1
     assert gdf.iloc[0]["geometry"] == Point(10, 10)
-
