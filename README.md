@@ -11,8 +11,14 @@ Welcome to the GIS assignment repository for the SDG AI Lab Fellow Candidates of
 - [Tasks Overview](#tasks-overview)
 - [Running the Scripts](#running-the-scripts)
 - [Deliverables](#deliverables)
+- [Task 1 question 8 Scatterplot Analysis](#task-1-question-8-scatterplot-analysis)
+- [Task 3 question 4 transformations applied on the image](#Task-3-question-4-transformations-applied-on-the-image)
+- [Task 3 question 5 report accuracy scores](#Task-3-question-5-report-accuracy-scores)
+- [Coding standard](#coding-standard)
 - [Acknowledgements](#acknowledgements)
 - [Contact Information](#contact-information)
+
+
 
 ## Getting Started
 
@@ -20,6 +26,7 @@ Welcome to the GIS assignment repository for the SDG AI Lab Fellow Candidates of
 
 - A Python environment (my environment ran on v3.11).
 - Required packages and dependencies can be installed from the `environment.yml` file.
+- The environment was built on a Linux machine, with cuda toolkit installed. If you do not have cuda drivers installed for machine learning features, you need to install the cpu version of pytorch.
 - Datasets are available at this [Google Drive link](https://drive.google.com/drive/folders/1uJ2SfuFo4H561FPj97AHZwvwT6HjJ3rn?usp=sharing).
 
 ### Setup
@@ -58,11 +65,22 @@ Detailed task descriptions can be found in the 'GIS Recruitment Task Fall 2023.p
 
 ## Running the Scripts
 
-- For Task 1: `python task_1.py`
-- For Task 2: `python task_2.py`
-- For Task 3: `python task_3.py`
+Make sure the PYTHONPATH is correct
+
+``` bash
+python task_1.py
+python task_2.py
+python task_3.py
+```
 
 Make sure to adjust to correctly configure PYTHONPATH to be in the repo.
+
+## Running the test suite
+
+To run the test suite, run the following in the repo
+``` bash
+pytest .
+```
 
 ## Deliverables
 
@@ -70,12 +88,11 @@ Make sure to adjust to correctly configure PYTHONPATH to be in the repo.
 - The assignment also outputs specific metrics and results directly to the console.
 
 
-# Tasks (report)
 ## Task 1 question 8: Scatterplot Analysis
 
 
 
-<img src="deliverables/scatter_plot_clustered.png" alt="Wealth Index vs. Number of Household Members (clustered)" width="500" height="300"/>
+<img src="deliverables/task_1/scatter_plot_clustered.png" alt="Wealth Index vs. Number of Household Members (clustered)" width="500" height="300"/>
 
 #### Objective
 To explore the association between the 'wealth index' and 'number of household members' inside the Burkina Faso survey dataset.
@@ -95,7 +112,7 @@ To explore the association between the 'wealth index' and 'number of household m
    - The Pearson correlation coefficient test is recommended for assessing the statistical significance of the observed correlation.
 
 
-<img src="deliverables/scatter_plot_unclustered.png" alt="Wealth Index vs. Number of Household Members (unclustered)" width="500" height="300"/>
+<img src="deliverables/task_1/scatter_plot_unclustered.png" alt="Wealth Index vs. Number of Household Members (unclustered)" width="500" height="300"/>
 
 As an addition, we plotted wealth index against number of household numbers in the whole dataset. The resulting R-squared value is notably low at 0.01, suggesting a minimal relationship between the wealth index and household size on an overarching scale. The dataset also exhibits increased variance. It's evident that clustering the data spatially mitigates noise and variance, emphasizing spatial dynamics that correlate the two variables more distinctly at lower resolutions. Exploring methods like spatial autocorrelation could be valuable for identifying distinct patterns in various areas.
 
@@ -152,7 +169,7 @@ The model boasts an impressive accuracy of 97%. However, it's unclear if the dat
 
 #### Confusion matrix
 
-<img src="deliverables/confusion_matrix.png" alt="Wealth Index vs. Number of Household Members (unclustered)" width="500" height="500"/>
+<img src="deliverables/task_3/confusion_matrix.png" alt="Wealth Index vs. Number of Household Members (unclustered)" width="500" height="500"/>
 
 
 2. **Confusion Matrix**: the confusion matrix provides a detailed view of the model's mistakes.
@@ -162,7 +179,23 @@ The model boasts an impressive accuracy of 97%. However, it's unclear if the dat
 - `PermanentCrop` appears to be the most challenging for the model, likely due to its similarities with other classes like `AnnualCrop`. An in-depth analysis might provide insights for improvement.
 
 
-In conclusion, while the model is robust, there's potential for enhancement, especially for challenging classes. Augmenting training data or focusing on difficult classes, in a way similar to the 'hard negative mining' training approach for binary classification issues. It is also not known if the data assessing the model was used for the model or not. Different 
+In conclusion, while the model is robust, there's potential for enhancement, especially for challenging classes. Augmenting training data or focusing on difficult classes, in a way similar to the 'hard negative mining' training approach for binary classification issues. It is also not known if the data assessing the model was used for the model or not.
+
+## Coding standard
+
+In the development of this assignment, a number of coding standards and best practices were adhered to ensure code quality, readability, and maintainability. Here's a brief summary:
+
+### 1. **Static Analysis Tools**: 
+
+- **Pylint**: Adopted to maintain a consistent coding style across the entire repository. Pylint goes beyond just checking the syntax, but it also looks for any error patterns, making sure the code adheres to PEP 8 (Python Enhancement Proposals), and even checks for refactoring opportunities. Using Pylint ensures the code is readable and maintainable by any developer who reviews or takes on this project in the future.
+  
+-  **Black**: In addition to Pylint for maintaining coding style, the codebase has been formatted using Black, a Python code formatter. Black ensures that the code has a consistent appearance, making it easier to read and understand.
+
+- **Mypy**: Mypy is a static typing tool. It checks if the types of variables, return values, and function arguments match what's expected. This type checking offers an added layer of security, ensuring the integrity of the codebase.
+
+## 2. **Testing**:
+
+- **Pytest**: Having a robust test suite is crucial, not only to verify the correctness of the code but also to make future changes with confidence. The functions are tested as much as possible, with different scenarios, and use advanced features like mocked data for better maintenance.
 
 ## Acknowledgements
 
