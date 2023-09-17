@@ -20,6 +20,7 @@ Welcome to the GIS assignment repository for the SDG AI Lab Fellow Candidates of
 
 - A Python environment (my environment ran on v3.11).
 - Required packages and dependencies can be installed from the `environment.yml` file.
+- The environment was built on a Linux machine, with cuda toolkit installed. If you do not have cuda drivers installed for machine learning features, you need to install the cpu version of pytorch.
 - Datasets are available at this [Google Drive link](https://drive.google.com/drive/folders/1uJ2SfuFo4H561FPj97AHZwvwT6HjJ3rn?usp=sharing).
 
 ### Setup
@@ -58,11 +59,22 @@ Detailed task descriptions can be found in the 'GIS Recruitment Task Fall 2023.p
 
 ## Running the Scripts
 
-- For Task 1: `python task_1.py`
-- For Task 2: `python task_2.py`
-- For Task 3: `python task_3.py`
+Make sure the PYTHONPATH is correct
+
+``` bash
+python task_1.py
+python task_2.py
+python task_3.py
+```
 
 Make sure to adjust to correctly configure PYTHONPATH to be in the repo.
+
+## Running the test suite
+
+To run the test suite, run the following in the repo
+``` bash
+pytest .
+```
 
 ## Deliverables
 
@@ -162,7 +174,9 @@ The model boasts an impressive accuracy of 97%. However, it's unclear if the dat
 - `PermanentCrop` appears to be the most challenging for the model, likely due to its similarities with other classes like `AnnualCrop`. An in-depth analysis might provide insights for improvement.
 
 
-In conclusion, while the model is robust, there's potential for enhancement, especially for challenging classes. Augmenting training data or focusing on difficult classes, in a way similar to the 'hard negative mining' training approach for binary classification issues. It is also not known if the data assessing the model was used for the model or not. Different 
+In conclusion, while the model is robust, there's potential for enhancement, especially for challenging classes. Augmenting training data or focusing on difficult classes, in a way similar to the 'hard negative mining' training approach for binary classification issues. It is also not known if the data assessing the model was used for the model or not.
+
+## 
 
 ## Acknowledgements
 
