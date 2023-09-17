@@ -10,6 +10,8 @@ dependencies:
   - torchvision
   - geopandas
   - rasterio
+  - shapely
+  - matplotlib-scalebar
   - opencv
   - seaborn
   - contextily
