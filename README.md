@@ -92,7 +92,7 @@ pytest .
 
 
 
-<img src="deliverables/scatter_plot_clustered.png" alt="Wealth Index vs. Number of Household Members (clustered)" width="500" height="300"/>
+<img src="deliverables/task_1/scatter_plot_clustered.png" alt="Wealth Index vs. Number of Household Members (clustered)" width="500" height="300"/>
 
 #### Objective
 To explore the association between the 'wealth index' and 'number of household members' inside the Burkina Faso survey dataset.
@@ -112,7 +112,7 @@ To explore the association between the 'wealth index' and 'number of household m
    - The Pearson correlation coefficient test is recommended for assessing the statistical significance of the observed correlation.
 
 
-<img src="deliverables/scatter_plot_unclustered.png" alt="Wealth Index vs. Number of Household Members (unclustered)" width="500" height="300"/>
+<img src="deliverables/task_1/scatter_plot_unclustered.png" alt="Wealth Index vs. Number of Household Members (unclustered)" width="500" height="300"/>
 
 As an addition, we plotted wealth index against number of household numbers in the whole dataset. The resulting R-squared value is notably low at 0.01, suggesting a minimal relationship between the wealth index and household size on an overarching scale. The dataset also exhibits increased variance. It's evident that clustering the data spatially mitigates noise and variance, emphasizing spatial dynamics that correlate the two variables more distinctly at lower resolutions. Exploring methods like spatial autocorrelation could be valuable for identifying distinct patterns in various areas.
 
@@ -169,7 +169,7 @@ The model boasts an impressive accuracy of 97%. However, it's unclear if the dat
 
 #### Confusion matrix
 
-<img src="deliverables/confusion_matrix.png" alt="Wealth Index vs. Number of Household Members (unclustered)" width="500" height="500"/>
+<img src="deliverables/task_3/confusion_matrix.png" alt="Wealth Index vs. Number of Household Members (unclustered)" width="500" height="500"/>
 
 
 2. **Confusion Matrix**: the confusion matrix provides a detailed view of the model's mistakes.
