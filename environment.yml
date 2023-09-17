@@ -10,9 +10,7 @@ dependencies:
   - torchvision
   - geopandas
   - rasterio
-  - shapely
   - cv2
-  - pandas
   - seaborn
   - contextily
   - matplotlib
