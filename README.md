@@ -17,9 +17,6 @@ Welcome to the GIS assignment repository for the SDG AI Lab Fellow Candidates of
 - [Task 3 question 4 transformations applied on the image](#Task-3-question-4-transformations-applied-on-the-image)
 - [Task 3 question 5 report accuracy scores](#Task-3-question-5-report-accuracy-scores)
 - [Coding standard](#coding-standard)
-    - [Static Analysis Tools](#static-analysis-tools)
-    - [Testing](#testing)
-    - [Clean Code & Commenting](#clean-code-&-commenting)
 - [Acknowledgements](#acknowledgements)
 - [Contact Information](#contact-information)
 
