@@ -66,6 +66,7 @@ def plot_with_basemap(
     ax_plot.add_artist(ScaleBar(1))
 
     # Add north arrow
+    # after trials these values were found to be the best
     x_letter, y_letter, arrow_length = 0.07, 0.2, 0.1
     ax_plot.annotate(
         "N",

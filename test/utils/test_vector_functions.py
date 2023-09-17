@@ -7,6 +7,7 @@ from geopandas import GeoDataFrame
 from pandas import DataFrame
 from shapely import Point
 
+from utils.vector_functions import remove_point_by_coordinate
 from utils.visualization_functions import plot_with_basemap, scatter_plot
 
 
@@ -51,3 +52,18 @@ def test_scatter_plot_file_created_is_not_empty():
         image_array = np.array(image)
         # assert values in the image are varied
         assert np.var(image_array) > 100
+
+def test_remove_points_based_on_lat_lon_returns_correct_values():
+    # arrange
+    geometry = [Point(0, 0), Point(10, 10), Point(0, 0)]
+    df_features = {"geometry": geometry}
+    gdf = GeoDataFrame(df_features, geometry=geometry, crs="EPSG:4326")
+    coordinate_to_remove = Point(0, 0)
+
+    # act
+    gdf = remove_point_by_coordinate(gdf, coordinate_to_remove)
+
+    # assert
+    assert len(gdf) == 1
+    assert gdf.iloc[0]["geometry"] == Point(10, 10)
+

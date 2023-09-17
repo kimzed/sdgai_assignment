@@ -1,10 +1,11 @@
 from pathlib import Path
 from typing import List, Optional
-from sklearn.metrics import confusion_matrix
+
 import numpy as np
-import seaborn as sns
 import pandas as pd
 from matplotlib import pyplot as plt
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
 
 
 def confusion_matrix_visualization(
@@ -25,16 +26,15 @@ def confusion_matrix_visualization(
             "unique classes in predictions and ground truth."
         )
 
-    cm_data = confusion_matrix(y_true=ground_truth, y_pred=predictions)
-    cm_df = pd.DataFrame(
-        cm_data,
+    confusion_matrix_data = confusion_matrix(y_true=ground_truth, y_pred=predictions)
+    confusion_matrix_df = pd.DataFrame(
+        confusion_matrix_data,
         index=labels,
         columns=labels,
     )
 
-    # Plotting the confusion matrix
     plt.figure(figsize=(5, 4))
-    sns.heatmap(cm_df, annot=True)
+    sns.heatmap(confusion_matrix_df, annot=True)
     plt.title("Confusion Matrix")
     plt.ylabel("Actual Values")
     plt.xlabel("Predicted Values")

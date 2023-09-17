@@ -9,8 +9,7 @@ from settings import POINTS2_SHP, ADDITIONAL_DATA_CSV, DELIVERABLE_DIR_TASK1
 from utils.visualization_functions import plot_with_basemap, scatter_plot
 from utils.vector_functions import (
     add_rows_to_gdf,
-    remove_points_based_on_lat_lon,
-    filter_gdf_points_by_extent,
+    remove_point_by_coordinate,
 )
 
 
@@ -37,7 +36,7 @@ def main():
     # Step 3
     # through visual inspection, we identify that the 0, 0 points are outliers. we remove them
     coordinate_to_remove = Point(0, 0)
-    gdf_clean = remove_points_based_on_lat_lon(
+    gdf_clean = remove_point_by_coordinate(
         gdf=gdf_with_point, coordinate_to_remove=coordinate_to_remove
     )
 
@@ -51,7 +50,7 @@ def main():
     extent = box(
         xmin=-2.001880227, ymin=12.118472459, xmax=-0.967547730, ymax=12.593677957
     )
-    gdf_filtered = filter_gdf_points_by_extent(gdf_clean, extent)
+    gdf_filtered = gdf_clean[gdf_clean["geometry"].apply(lambda x: x.within(extent))]
     print("Number of urban and rural points within the bounding box:\n")
     print(gdf_filtered["URBAN_RURA"].value_counts())
 
@@ -96,7 +95,6 @@ def main():
     )
 
     # Step 9
-    # TODO extract the plotting into a function
     gdf_merged["number_of_household_members_zscore"] = zscore(
         gdf_merged["number of household members"]
     )

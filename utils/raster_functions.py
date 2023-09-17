@@ -99,6 +99,8 @@ def resample_raster(
             resampling=Resampling.bilinear,
         )
 
+        # we change the metadata that will be used when computing the new
+        # pixel coordinates.
         profile.update(
             {
                 "height": raster_reader.shape[-2],

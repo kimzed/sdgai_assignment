@@ -6,7 +6,8 @@ import pytest
 import matplotlib
 
 # we disable display of plots
-matplotlib.use('Agg')
+matplotlib.use("Agg")
+
 
 @pytest.fixture
 def ensure_empty_deliverable_dir():

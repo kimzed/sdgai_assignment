@@ -1,4 +1,3 @@
-
 import rasterio
 import geopandas as gpd
 from rasterio.plot import show
@@ -8,7 +7,8 @@ from settings import (
     R10m_RASTER_DIR,
     R20m_RASTER_DIR,
     FILE_LA_PALMA_BOUNDS,
-    DATA_DIR_TASK2, DELIVERABLE_DIR_TASK2,
+    DATA_DIR_TASK2,
+    DELIVERABLE_DIR_TASK2,
 )
 from utils.raster_functions import (
     stack_raster_bands_into_single_tif_raster,

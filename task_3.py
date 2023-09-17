@@ -1,4 +1,3 @@
-
 import random
 import pandas as pd
 from torchvision import transforms
@@ -12,8 +11,7 @@ from utils.visualization_functions import visualize_image_array
 from utils.deep_learning_functions import tensor_to_image
 
 
-
-def main(): # pylint: disable=[too-many-locals]
+def main():  # pylint: disable=[too-many-locals]
 
     # Step 1
     transform = transforms.Compose(
@@ -33,7 +31,7 @@ def main(): # pylint: disable=[too-many-locals]
     )
 
     # Step 2
-    resnet_50_custom = ResNet50Custom(num_classes=len(dataset_unormalized.classes))
+    resnet_50_custom = ResNet50Custom(number_classes=len(dataset_unormalized.classes))
 
     # Step 3
     transform = transforms.Compose(
@@ -82,7 +80,9 @@ def main(): # pylint: disable=[too-many-locals]
     df_report = pd.DataFrame(report).transpose()
     # we remove some decimals to make the report more readable
     df_report_rounded = df_report.round(2)
-    df_report_rounded.to_csv(DELIVERABLE_DIR_TASK3.joinpath("classification_report.csv"))
+    df_report_rounded.to_csv(
+        DELIVERABLE_DIR_TASK3.joinpath("classification_report.csv")
+    )
 
 
 if __name__ == "__main__":

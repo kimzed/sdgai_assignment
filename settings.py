@@ -28,7 +28,9 @@ R20m_RASTER_DIR = RASTER_DIR / "R20m"
 DELIVERABLE_DIR_TASK2 = DELIVERABLE_DIR.joinpath("task_2")
 
 # Task 3
-TASK_3_DIR = Path(__file__).parent.joinpath("TASK 3 Data-20230913T191958Z-001/TASK 3 Data")
+TASK_3_DIR = Path(__file__).parent.joinpath(
+    "TASK 3 Data-20230913T191958Z-001/TASK 3 Data"
+)
 DATASET_PATH = TASK_3_DIR / "scene_classification_dataset"
 WEIGHTS_PATH = TASK_3_DIR / "model.pth"
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")

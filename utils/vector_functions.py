@@ -12,8 +12,8 @@ def add_rows_to_gdf(
     """Add a row to a geodataframe
 
     Args:
-        gdf (GeoDataFrame): geodataframe to add row to
-        new_geometries (geometry): geometry of new row
+        gdf (GeoDataFrame): geodataframe to add rows to
+        new_geometries (geometry): list of new geometries to add to gdf
         features (dict): features of new row
 
     Returns:
@@ -22,7 +22,7 @@ def add_rows_to_gdf(
 
     columns_gdf = set(gdf.columns)
     columns_gdf.remove("geometry")
-    if not set(features.keys()) == columns_gdf:
+    if set(features.keys()) != columns_gdf:
         raise ValueError("features keys are not the same as gdf columns")
 
     gdf_to_add = GeoDataFrame(features, geometry=new_geometries, crs=gdf.crs)
@@ -31,7 +31,7 @@ def add_rows_to_gdf(
     return gdf_out
 
 
-def remove_points_based_on_lat_lon(
+def remove_point_by_coordinate(
     gdf: GeoDataFrame, coordinate_to_remove: Point
 ) -> GeoDataFrame:
     """Remove points from a geodataframe based on latitude and longitude
@@ -43,28 +43,12 @@ def remove_points_based_on_lat_lon(
     Returns:
         GeoDataFrame: geodataframe with points removed
     """
-    # check numerically based on the coordinate values
-    lons_is_equal = [
-        np.isclose(point.x, coordinate_to_remove.x) for point in gdf["geometry"]
-    ]
-    lat_is_equal = [
-        np.isclose(point.y, coordinate_to_remove.y) for point in gdf["geometry"]
-    ]
-    gdf = gdf[~(np.array(lons_is_equal) & np.array(lat_is_equal))]
-    return gdf
 
-
-def filter_gdf_points_by_extent(gdf: GeoDataFrame, extent: box) -> GeoDataFrame:
-    """Filter a geodataframe based on an extent
-
-    Args:
-        gdf (GeoDataFrame): geodataframe to filter
-        extent (box): extent to filter by
-
-    Returns:
-        GeoDataFrame: filtered geodataframe
-    """
-    # check numerically based on the coordinate values
-    gdf["geometry"].apply(lambda x: x.within(extent))
-    gdf = gdf[gdf["geometry"].apply(lambda x: x.within(extent))]
+    # we create a list of booleans, where True means that the point
+    # is not the one we want to remove
+    mask = ~gdf["geometry"].apply(
+        lambda point: np.isclose(point.x, coordinate_to_remove.x)
+        and np.isclose(point.y, coordinate_to_remove.y)
+    )
+    gdf = gdf[mask]
     return gdf

@@ -13,12 +13,12 @@ from settings import DEVICE, WEIGHTS_PATH
 class ResNet50Custom:
     def __init__(
         self,
-        num_classes: int,
+        number_classes: int,
         learning_rate: float = 5e-4,
         device: torch.device = DEVICE,
         weights_path: Optional[Path] = WEIGHTS_PATH,
     ):
-        self.number_classes = num_classes
+        self.number_classes = number_classes
         self.device = device
         self.weights_path = weights_path
 
@@ -47,6 +47,7 @@ class ResNet50Custom:
         # we use the eval mode to avoid updating the gradients
         self.model.eval()
 
+        # model outputs positive values, we need to convert them to probabilities
         return F.softmax(self.model(tensor), dim=1)
 
     def _load_pre_trained_model(self):
@@ -83,6 +84,10 @@ class ResNet50Custom:
         return {"y_pred": predicted_labels, "y_true": actual_labels}
 
     def _define_optimizer(self, learning_rate):
+        """
+        This is just an indication of how the optimizer should be defined
+        for the task. It is not used during the assignment.
+        """
         # Extracting non-final layer parameters
         params_pre_trained = [
             param
