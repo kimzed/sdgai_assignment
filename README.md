@@ -11,6 +11,10 @@ Welcome to the GIS assignment repository for the SDG AI Lab Fellow Candidates of
 - [Tasks Overview](#tasks-overview)
 - [Running the Scripts](#running-the-scripts)
 - [Deliverables](#deliverables)
+- [Task 1 question 8: Scatterplot Analysis](#Task 1 question 8: Scatterplot Analysis)
+- [Task 3 question 4: transformations applied on the image](#Task 3 question 4: transformations applied on the image)
+- [Task 3 question 5: report accuracy scores](#Task 3 question 5: report accuracy scores)
+- [Coding standard](#coding-standard)
 - [Acknowledgements](#acknowledgements)
 - [Contact Information](#contact-information)
 
@@ -82,7 +86,6 @@ pytest .
 - The assignment also outputs specific metrics and results directly to the console.
 
 
-# Tasks (report)
 ## Task 1 question 8: Scatterplot Analysis
 
 
@@ -176,7 +179,25 @@ The model boasts an impressive accuracy of 97%. However, it's unclear if the dat
 
 In conclusion, while the model is robust, there's potential for enhancement, especially for challenging classes. Augmenting training data or focusing on difficult classes, in a way similar to the 'hard negative mining' training approach for binary classification issues. It is also not known if the data assessing the model was used for the model or not.
 
-## 
+## Coding standard
+
+In the development of this assignment, a number of coding standards and best practices were adhered to ensure code quality, readability, and maintainability. Here's a brief summary:
+
+### 1. **Static Analysis Tools**: 
+
+- **Pylint**: Adopted to maintain a consistent coding style across the entire repository. Pylint goes beyond just checking the syntax, but it also looks for any error patterns, making sure the code adheres to PEP 8 (Python Enhancement Proposals), and even checks for refactoring opportunities. Using Pylint ensures the code is readable and maintainable by any developer who reviews or takes on this project in the future.
+  
+-  **Black**: In addition to Pylint for maintaining coding style, the codebase has been formatted using Black, a Python code formatter. Black ensures that the code has a consistent appearance, making it easier to read and understand.
+
+- **Mypy**: Mypy is a static typing tool. It checks if the types of variables, return values, and function arguments match what's expected. This type checking offers an added layer of security, ensuring the integrity of the codebase.
+
+## 2. **Testing**:
+
+- **Pytest**: Having a robust test suite is crucial, not only to verify the correctness of the code but also to make future changes with confidence. The functions are tested as much as possible, with different scenarios, and use advanced features like mocked data for better maintenance.
+
+## 3. **Clean Code & Commenting**:
+
+
 
 ## Acknowledgements
 
