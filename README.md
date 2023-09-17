@@ -129,23 +129,40 @@ Where:
 
 #### Metrics report
 
-|                   | precision | recall | f1-score | support |
-|-------------------|-----------|--------|----------|---------|
-| AnnualCrop        | 0.91      | 0.96   | 0.93     | 50      |
-| Forest            | 0.98      | 0.96   | 0.97     | 50      |
-| HerbaceousVegetation | 0.96   | 0.96   | 0.96     | 50      |
-| Highway           | 1.00      | 1.00   | 1.00     | 50      |
-| Industrial        | 1.00      | 0.98   | 0.99     | 50      |
-| Pasture           | 0.94      | 0.96   | 0.95     | 50      |
-| PermanentCrop     | 0.94      | 0.90   | 0.92     | 50      |
-| Residential       | 1.00      | 1.00   | 1.00     | 50      |
-| River             | 0.98      | 0.98   | 0.98     | 50      |
-| SeaLake           | 0.98      | 0.98   | 0.98     | 50      |
-| accuracy          | 0.97      | 0.97   | 0.97     | 0.97    |
-| macro avg         | 0.97      | 0.97   | 0.97     | 500     |
-| weighted avg      | 0.97      | 0.97   | 0.97     | 500     |
+|                   | precision | recall | f1-score |
+|-------------------|-----------|--------|----------|
+| AnnualCrop        | 0.91      | 0.96   | 0.93     |
+| Forest            | 0.98      | 0.96   | 0.97     |
+| HerbaceousVegetation | 0.96   | 0.96   | 0.96     |
+| Highway           | 1.00      | 1.00   | 1.00     |
+| Industrial        | 1.00      | 0.98   | 0.99     |
+| Pasture           | 0.94      | 0.96   | 0.95     |
+| PermanentCrop     | 0.94      | 0.90   | 0.92     |
+| Residential       | 1.00      | 1.00   | 1.00     |
+| River             | 0.98      | 0.98   | 0.98     |
+| SeaLake           | 0.98      | 0.98   | 0.98     |
+| accuracy          | 0.97      |        |          |
+| macro avg         | 0.97      |        |          |
+| weighted avg      | 0.97      |        |          |
+
+The model boasts an impressive accuracy of 97%. However, it's unclear if the data utilized was included in the training set, which would lead to potential 'data contamination'. If the data is not part of the training set, it should still be at least separated geographically from the data used for training and validation. This distinction ensures a more accurate representation of the model's ability to generalize on various samples in production time.
+
+- **AnnualCrop**: Out of the model AnnualCrop predictions, 91% are correct, which indicates a lot of misclassification for this class. When the real class is AnnualCrop, the model identifies it correctly 96% of the time. The F1-score is 0.93.
+- **PermanentCrop**: It has the lowest F1-score (0.92) among all classes, suggesting it's challenging for the model.
+
+#### Confusion matrix
+
+<img src="deliverables/confusion_matrix.png" alt="Wealth Index vs. Number of Household Members (unclustered)" width="500" height="500"/>
 
 
+2. **Confusion Matrix**: the confusion matrix provides a detailed view of the model's mistakes.
+
+- The model exhibits strong performance across most land-use classes with an impressive 97% accuracy. `Highway` and `Residential` classes have perfect scores, suggesting they possess distinct features that the model can discern easily.
+
+- `PermanentCrop` appears to be the most challenging for the model, likely due to its similarities with other classes like `AnnualCrop`. An in-depth analysis might provide insights for improvement.
+
+
+In conclusion, while the model is robust, there's potential for enhancement, especially for challenging classes. Augmenting training data or focusing on difficult classes, in a way similar to the 'hard negative mining' training approach for binary classification issues. It is also not known if the data assessing the model was used for the model or not. Different 
 
 ## Acknowledgements
 
