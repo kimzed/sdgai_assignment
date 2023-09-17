@@ -1,27 +1,19 @@
-from pathlib import Path
 
+import random
 import pandas as pd
-from torch.utils.data import DataLoader
 from torchvision import transforms
 from torchvision.datasets import ImageFolder
-import random
 from sklearn.metrics import classification_report
 
 from deep_learning.metrics import confusion_matrix_visualization
 from deep_learning.resnet_50_model import ResNet50Custom
-from settings import DELIVERABLE_DIR
+from settings import DELIVERABLE_DIR_TASK3, DATASET_PATH
 from utils.visualization_functions import visualize_image_array
 from utils.deep_learning_functions import tensor_to_image
 
-TASK_3_DIR = Path.cwd().parent.joinpath("TASK 3 Data")
-TASK_3_DIR = Path(
-    "/home/cedric/repos/sdgai_assignment/TASK 3 Data-20230913T191958Z-001"
-)
-DATASET_PATH = TASK_3_DIR.joinpath("TASK 3 Data/scene_classification_dataset")
-WEIGHTS_PATH = TASK_3_DIR / "TASK 3 Data/model.pth"
 
 
-def main():
+def main(): # pylint: disable=[too-many-locals]
 
     # Step 1
     transform = transforms.Compose(
@@ -61,7 +53,7 @@ def main():
 
     # we visualize a few images to see how the model performs
     number_images_to_visualize = 5
-    for i_image in range(number_images_to_visualize):
+    for _ in range(number_images_to_visualize):
         i_random = random.randint(0, len(dataset))
         sample_image, i_label = dataset_unormalized[i_random]
         array_visualization = tensor_to_image(sample_image)
@@ -77,7 +69,7 @@ def main():
         predictions=predicted_labels,
         ground_truth=actual_labels,
         labels=dataset.classes,
-        save_path=DELIVERABLE_DIR.joinpath("confusion_matrix.png"),
+        save_path=DELIVERABLE_DIR_TASK3.joinpath("confusion_matrix.png"),
     )
 
     report = classification_report(
@@ -90,7 +82,7 @@ def main():
     df_report = pd.DataFrame(report).transpose()
     # we remove some decimals to make the report more readable
     df_report_rounded = df_report.round(2)
-    df_report_rounded.to_csv(DELIVERABLE_DIR.joinpath("classification_report.csv"))
+    df_report_rounded.to_csv(DELIVERABLE_DIR_TASK3.joinpath("classification_report.csv"))
 
 
 if __name__ == "__main__":

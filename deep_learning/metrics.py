@@ -32,9 +32,6 @@ def confusion_matrix_visualization(
         columns=labels,
     )
 
-    # saving the confusion matrix as a csv file
-    cm_df.to_csv('/home/cedric/repos/sdgai_assignment/deliverables/confusion_matrix.csv')
-
     # Plotting the confusion matrix
     plt.figure(figsize=(5, 4))
     sns.heatmap(cm_df, annot=True)

@@ -7,9 +7,8 @@ from shapely.ops import unary_union
 from settings import (
     R10m_RASTER_DIR,
     R20m_RASTER_DIR,
-    DATA_DIR_TASK2,
     FILE_LA_PALMA_BOUNDS,
-    DELIVERABLE_DIR,
+    DATA_DIR_TASK2, DELIVERABLE_DIR_TASK2,
 )
 from utils.raster_functions import (
     stack_raster_bands_into_single_tif_raster,
@@ -74,7 +73,7 @@ def main():  # pylint: disable=too-many-locals
         dst.write(rescaled_values)
 
     # Step 4 and 5
-    resampled_raster_file = DELIVERABLE_DIR / "resampled_raster.tif"
+    resampled_raster_file = DELIVERABLE_DIR_TASK2 / "resampled_raster.tif"
     _ = resample_raster(
         raster=rescaled_raster,
         new_spatial_resolution_meter=20,

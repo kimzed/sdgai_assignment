@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 from scipy.stats import zscore
 from shapely import Point, box
 
-from settings import POINTS2_SHP, DELIVERABLE_DIR, DATA_DIR_TASK1, ADDITIONAL_DATA_CSV
+from settings import POINTS2_SHP, ADDITIONAL_DATA_CSV, DELIVERABLE_DIR_TASK1
 from utils.visualization_functions import plot_with_basemap, scatter_plot
 from utils.vector_functions import (
     add_rows_to_gdf,
@@ -44,7 +44,7 @@ def main():
     # Step 4
     # only column 'LATNUM', 'LONGNUM' into a csv file
     lat_lon_to_save = gdf_clean[["LATNUM", "LONGNUM"]]
-    lat_lon_to_save.to_csv(DELIVERABLE_DIR.joinpath("lat_lon.csv"))
+    lat_lon_to_save.to_csv(DELIVERABLE_DIR_TASK1.joinpath("lat_lon.csv"))
 
     # Step 5
     # we add the value given in the assignment
@@ -58,7 +58,7 @@ def main():
     # Step 6
     plot_with_basemap(
         gdf=gdf_filtered,
-        output_file=DATA_DIR_TASK1.joinpath("points_within_extent.png"),
+        output_file=DELIVERABLE_DIR_TASK1.joinpath("points_within_extent.png"),
     )
 
     # Step 7
@@ -85,14 +85,14 @@ def main():
         x_feature="wealth index",
         y_feature="number of household members",
         title="Scatterplot between Wealth Index and Number of Household Members (unclustered data)",
-        output_file=DELIVERABLE_DIR.joinpath("scatter_plot_unclustered.png"),
+        output_file=DELIVERABLE_DIR_TASK1.joinpath("scatter_plot_unclustered.png"),
     )
     scatter_plot(
         data=gdf_merged,
         x_feature="wealth index",
         y_feature="number of household members",
         title="Scatterplot between Wealth Index and Number of Household Members (clustered data)",
-        output_file=DELIVERABLE_DIR.joinpath("scatter_plot_clustered.png"),
+        output_file=DELIVERABLE_DIR_TASK1.joinpath("scatter_plot_clustered.png"),
     )
 
     # Step 9
@@ -126,7 +126,7 @@ def main():
     ax_plot[1].grid(True)
 
     plt.tight_layout()
-    plt.savefig(DELIVERABLE_DIR / "histograms.png")
+    plt.savefig(DELIVERABLE_DIR_TASK1 / "histograms.png")
     plt.show()
 
 
