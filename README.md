@@ -32,7 +32,7 @@ Welcome to the GIS assignment repository for the SDG AI Lab Fellow Candidates of
 ### Setup
 
 1. Clone the repository to your local machine.
-2. Download the three data folders (e.g. 'TASK 2 Data-20230913T191955Z-001' for task 2) and move them into the local repo.
+2. Download the three data folders and move them into the local repo.
 3. Navigate to the repository directory.
 4. Set up a Python environment and activate it.
 5. Install required packages: `conda env create -f environment.yml`
